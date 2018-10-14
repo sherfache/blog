@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from app.urls import blog_patterns
-from app import localtest
 
 urlpatterns = [
     path("blog/", include(blog_patterns)),
