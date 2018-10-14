@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+{% for blog in blogList %}
+    <article class="post post-{{ blog.id }}">
+        <h1 class="entry-title">
+            <a href="{{ blog.getAbsoluteUrl }}">{{ blog.title }}</a>
+        </h1>
+        <div class="entry-meta">
+            <span class="post-date">{{ blog.getDate }}</span>
+            <span class="post-author">{{ blog.author }}</span>
+        </div>
+        <div class="entry-content clearfix">
+            <p>{{ blog.digest }}</p>
+            <div class="read-more cl-effect-14">
+                <a href="{{ blog.getAbsoluteUrl }}">继续阅读 <span class="meta-nav">+</span></a>
+            </div>
+        </div>
+    </article>
+{% endfor %}
+
+{% endblock main %}

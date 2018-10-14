@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <article class="post post-{{ blog.id }}">
+        <header class="entry-header">
+            <h1 class="entry-title">{{ blog.title }}</h1>
+            <div class="entry-meta">
+                <!--<span class="post-category"><a href="#">随笔</a></span>-->
+                <span class="post-date">{{blog.getDate}}</span>
+                <span class="post-author">{{ blog.author }}</span>
+                <!--<span class="comments-link"><a href="#">5 评论</a></span>-->
+                <span class="views-count">{{ blog.view_count }} 阅读</span>
+            </div>
+        </header>
+        <div class="entry-content clearfix">
+            {{ blog.content|safe }}
+        </div>
+    </article>
+    <!--<section class="comment-area">-->
+        <!--...-->
+    <!--</section>-->
+{% endblock main %}
+
+<!--{% block sidebar %}-->
+<!--&lt;!&ndash; 占位数据 &ndash;&gt;-->
+    <!--<div class="widget widget-content">-->
+        <!--<h3 class="widget-title">文章目录</h3>-->
+        <!--<ul>-->
+            <!--<li>-->
+                <!--<a href="#">教程特点</a>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<a href="#">谁适合这个教程</a>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<a href="#">在线预览</a>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<a href="#">资源列表</a>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<a href="#">获取帮助</a>-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</div>-->
+<!--&lt;!&ndash; 占位数据 &ndash;&gt;-->
+<!--{% endblock sidebar %}-->
