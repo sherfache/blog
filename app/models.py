@@ -25,7 +25,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=512)
     content = models.TextField(default="")
     digest = models.TextField(default="")
-    author = models.TextField()
+    author = models.TextField(default="帅番茄")
     category_id = models.IntegerField(default=0)
     words_num = models.IntegerField(default=0)
     blog_status = models.IntegerField(default=1)
@@ -49,7 +49,7 @@ class Blog(models.Model):
                 "markdown.extensions.extra",
                 "markdown.extensions.codehilite",
             ])
-            self.digest = strip_tags(md.convert(self.content))[:54]
+            self.digest = strip_tags(md.convert(self.content))[:84] + "..."
         super(Blog, self).save(*args, **kwargs)
 
     # 通过blogId获取博客

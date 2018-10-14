@@ -16,7 +16,7 @@ def index(request):
 def detail(request, blogId):
     blog = Blog.getBlogById(blogId)
     if not blog:
-        return returnNotFound()
+        return returnNotFound("博客不存在")
     # 自增pv
     blog.increaseViews()
     blog.content = markdown.markdown(blog.content,
