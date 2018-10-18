@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from app.urls import blog_patterns
+from weixin.urls import weixin_patterns
 
 urlpatterns = [
     path("blog/", include(blog_patterns)),
-
+    path("weixin", include(weixin_patterns)),
 
 ]

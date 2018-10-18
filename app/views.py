@@ -35,7 +35,7 @@ def checkPara(dataMap, keyList):
     for k in keyList:
         if k not in dataMap:
             if result[0] == True:
-                result[0] = "缺少参数：" + k
+                result[0] = "Need para: " + k
             value = None
         else:
             value = dataMap[k]

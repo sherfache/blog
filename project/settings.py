@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
+    'weixin',
+
 ]
 
 MIDDLEWARE = [
@@ -140,4 +142,11 @@ STATIC_ROOT = getLocal("STATIC_ROOT", os.path.join(BASE_DIR, "static"))
 
 # 简单校验
 OPERATOR_AUTH = getLocal("OPERATOR_AUTH", {})
+
+
+# 微信服务配置
+WEIXIN_OPEN_TOKEN = getLocal("WEIXIN_OPEN_TOKEN", "")
+
+
+
 

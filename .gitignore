@@ -3,4 +3,6 @@ app/localtest.py
 .idea/*
 app/__pycache__/*
 project/__pycache__/*
+weixin/__pycache__/*
 app/migrations/*
+logs/*
