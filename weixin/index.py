@@ -29,7 +29,7 @@ def index(request):
     msgData = WeixinParser.parseXml(request.body)
 
     # 记录文件日志
-    FileLogger.log_info("weixin_POST_data", request.POST, handler_name=FileLogger.WEIXIN_HANDLER)
+    FileLogger.log_info("weixin_POST_data", request.body, handler_name=FileLogger.WEIXIN_HANDLER)
     FileLogger.log_info("weixin_data_map", msgData.__dict__, handler_name=FileLogger.WEIXIN_HANDLER)
 
     return returnOk()
