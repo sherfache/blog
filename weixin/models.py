@@ -24,12 +24,7 @@ class Weixin:
         try:
             res = requests.get(url, para).json()
             FileLogger.log_info("user_info", res, handler_name=FileLogger.WEIXIN_HANDLER)
-            result = {
-                "headImgUrl": res.get("headimgurl", ""),
-                "nickName": res.get("nickname", ""),
-                "unionId": res.get("unionId", "")
-            }
-            return result
+            return res
         except Exception as e:
             FileLogger.log_info("request_error", e, handler_name=FileLogger.WEIXIN_HANDLER)
             return None

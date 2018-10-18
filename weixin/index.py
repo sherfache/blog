@@ -28,13 +28,12 @@ def index(request):
         return HttpResponse(echostr)
 
     msgData = WeixinParser.parseXml(request.body)
+    FileLogger.log_info("weixin_parse_data", msgData.__dict__, handler_name=FileLogger.WEIXIN_HANDLER)
     if msgData.msgType == "event":  # 推送事件
         # 请求用户信息
         userData = Weixin.getUserInfo(msgData.fromUserName)
         # 保存or更新用户信息
         User.saveUser(userData)
-        FileLogger.log_info("weixin_data_map", msgData.__dict__, handler_name=FileLogger.WEIXIN_HANDLER)
-
 
     # 记录文件日志
     FileLogger.log_info("weixin_POST_data", request.body, handler_name=FileLogger.WEIXIN_HANDLER)
