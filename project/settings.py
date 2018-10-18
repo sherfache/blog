@@ -33,7 +33,7 @@ SECRET_KEY = getLocal('SECRET_KEY', '')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = getLocal("DEBUG", False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = getLocal("ALLOWED_HOSTS", [])
 
 
 # Application definition
