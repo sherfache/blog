@@ -2,7 +2,7 @@
 工具类
 """
 from django.conf import settings
-import hashlib
+import hashlib, datetime
 from xml.etree import ElementTree
 
 # 微信签名验证方法
@@ -53,6 +53,34 @@ class WeixinParser:
             super().__init__(xmlData)
             self.content = xmlData.find("Content").text.encode("utf-8")
             self.msgId = xmlData.find("MsgId").text
+
+    # 返回普通消息
+    @classmethod
+    def returnTextMessage(cls, toUser, content):
+        fromUser = settings.WEIXIN_ACCOUNT_ID
+        time = datetime.datetime.timestamp()
+        xmlMessage = """<xml>
+        <ToUserName>< ![CDATA[%s] ]></ToUserName>
+        <FromUserName>< ![CDATA[%s] ]></FromUserName>
+        <CreateTime>%d</CreateTime>
+        <MsgType>< ![CDATA[text] ]></MsgType>
+        <Content>< ![CDATA[%s] ]></Content>
+        </xml>
+        """%(toUser, fromUser, time, content)
+        return xmlMessage
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

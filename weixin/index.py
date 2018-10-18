@@ -6,6 +6,7 @@ from django.http import request
 from django.http import HttpResponse
 from weixin.utils import checkSignature, WeixinParser
 from app.util import FileLogger
+from weixin.models import Weixin, User
 
 # 推送入口
 def index(request):
@@ -27,10 +28,19 @@ def index(request):
         return HttpResponse(echostr)
 
     msgData = WeixinParser.parseXml(request.body)
+    if msgData.msgType == "event":  # 推送事件
+        # 请求用户信息
+        userData = Weixin.getUserInfo(msgData.fromUserName)
+        # 保存or更新用户信息
+        User.saveUser(userData)
+        FileLogger.log_info("weixin_data_map", msgData.__dict__, handler_name=FileLogger.WEIXIN_HANDLER)
+
 
     # 记录文件日志
     FileLogger.log_info("weixin_POST_data", request.body, handler_name=FileLogger.WEIXIN_HANDLER)
-    FileLogger.log_info("weixin_data_map", msgData.__dict__, handler_name=FileLogger.WEIXIN_HANDLER)
 
-    return returnOk()
+    resData = WeixinParser.returnTextMessage(msgData.fromUserName, "你什么关注我？(羞赧)")
+    return HttpResponse(resData)
+
+
 

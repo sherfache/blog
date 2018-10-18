@@ -146,7 +146,8 @@ OPERATOR_AUTH = getLocal("OPERATOR_AUTH", {})
 
 # 微信服务配置
 WEIXIN_OPEN_TOKEN = getLocal("WEIXIN_OPEN_TOKEN", "")
-
-
+WEIXIN_APP_ID = getLocal("WEIXIN_APP_ID", "")
+WEIXIN_APP_SECRET = getLocal("WEIXIN_APP_SECRET", "")
+WEIXIN_ACCOUNT_ID = getLocal("WEIXIN_ACCOUNT_ID", "")
 
 
