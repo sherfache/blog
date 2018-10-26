@@ -27,7 +27,11 @@ class WeixinParser:
         xmlData = ElementTree.fromstring(data)
         msgType = xmlData.find("MsgType").text
         if msgType == "event":
-            return cls.EventMsg(xmlData)
+            event = xmlData.find("Event").text
+            if event == "subscribe" or event == "SCAN":
+                return cls.ScanMsg(xmlData)
+            else:
+                return cls.EventMsg(xmlData)
         elif msgType == "text":
             return cls.TextMsg(xmlData)
         else:
@@ -53,6 +57,16 @@ class WeixinParser:
             super().__init__(xmlData)
             self.content = xmlData.find("Content").text.encode("utf-8")
             self.msgId = xmlData.find("MsgId").text
+
+    class ScanMsg(EventMsg):
+
+        def __init__(self, xmlData):
+            super().__init__(xmlData)
+            self.eventKey = xmlData.find("EventKey").text
+
+        def __str__(self):
+            return self.fromUserName + "-" + self.toUserName + "-" +self.msgType + "-" + self.event + "-" + self.eventKey
+
 
     # 返回普通消息
     @classmethod

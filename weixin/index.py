@@ -20,8 +20,6 @@ def index(request):
     if not checkSignature(signature, timestamp, nonce):
         return returnForbidden("Fuck off.")
 
-    FileLogger.log_info("weixin_GET_data", request.GET, handler_name=FileLogger.WEIXIN_HANDLER)
-
     # 如果是校验请求
     if request.method == "GET":
         echostr = request.GET.get("echostr")
@@ -30,16 +28,13 @@ def index(request):
     msgData = WeixinParser.parseXml(request.body)
     FileLogger.log_info("weixin_parse_data", msgData.__dict__, handler_name=FileLogger.WEIXIN_HANDLER)
     if msgData.msgType == "event":  # 推送事件
-        # 请求用户信息
-        userData = Weixin.getUserInfo(msgData.fromUserName)
-        # 保存or更新用户信息
-        User.saveUser(userData)
+        if msgData.event == "subscribe" or msgData.event == "SCAN":
+            FileLogger.log_info("xxxxxxxxxxxx_look_there_xxxxxxxxxxxxxx", msgData, FileLogger.WEIXIN_HANDLER)
 
-    # 记录文件日志
-    FileLogger.log_info("weixin_POST_data", request.body, handler_name=FileLogger.WEIXIN_HANDLER)
 
     resData = WeixinParser.returnTextMessage(msgData.fromUserName, "你什么关注我？(羞赧)")
-    return HttpResponse(resData)
+
+    return HttpResponse(resData, content_type="application/xml")
 
 
 
