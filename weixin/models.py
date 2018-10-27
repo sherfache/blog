@@ -64,7 +64,7 @@ class User(models.Model):
     country = models.CharField(max_length=32)
     province =models.CharField(max_length=32)
     city = models.CharField(max_length=64)
-    headimgurl = models.CharField(2040)
+    headimgurl = models.CharField(max_length=2040)
     subscribe_time = models.DateTimeField(default=datetime.datetime.now)
     created_at = models.DateTimeField(default=datetime.datetime.now)
     updated_at = models.DateTimeField(default=datetime.datetime.now)

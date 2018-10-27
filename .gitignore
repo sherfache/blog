@@ -6,3 +6,4 @@ project/__pycache__/*
 weixin/__pycache__/*
 app/migrations/*
 logs/*
+weixin/localtest.py

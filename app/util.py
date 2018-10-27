@@ -51,6 +51,7 @@ class FileLogger:
     # 文件日志handler名
     COMMON_HANDLER = "common_handler"  # 通用日志
     WEIXIN_HANDLER = "weixin_handler"  # 微信日志
+    IMAGE_HANDLER = "image_handler"  # 图片日志
 
     # 通用格式
     g_formatter = logging.Formatter(
@@ -70,7 +71,12 @@ class FileLogger:
             'interval': 7,  # 翻转间隔
             'backupCount': 4  # 备份数
         },
-
+        IMAGE_HANDLER: {
+            'filename': 'image.log',  # 文件名
+            'when': 'D',  # 翻转间隔类型
+            'interval': 7,  # 翻转间隔
+            'backupCount': 4  # 备份数
+        },
     }
 
     @classmethod

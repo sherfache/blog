@@ -4,3 +4,4 @@ markdown==3.0.1
 Pygments==2.2.0
 gunicorn==19.9.0
 requests==2.19.1
+filetype==1.0.1

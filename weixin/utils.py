@@ -65,7 +65,7 @@ class WeixinParser:
             self.eventKey = xmlData.find("EventKey").text
 
         def __str__(self):
-            return self.fromUserName + "-" + self.toUserName + "-" +self.msgType + "-" + self.event + "-" + self.eventKey
+            return self.fromUserName + " - " + self.toUserName + " - " +self.msgType + " - " + self.event + " - " + self.eventKey
 
 
     # 返回普通消息
