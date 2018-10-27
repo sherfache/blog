@@ -31,9 +31,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = getLocal('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = getLocal("DEBUG", False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = getLocal("ALLOWED_HOSTS", [])
 
 
 # Application definition
@@ -146,6 +146,23 @@ OPERATOR_AUTH = getLocal("OPERATOR_AUTH", {})
 
 # 微信服务配置
 WEIXIN_OPEN_TOKEN = getLocal("WEIXIN_OPEN_TOKEN", "")
+WEIXIN_APP_ID = getLocal("WEIXIN_APP_ID", "")
+WEIXIN_APP_SECRET = getLocal("WEIXIN_APP_SECRET", "")
+WEIXIN_ACCOUNT_ID = getLocal("WEIXIN_ACCOUNT_ID", "")
+
+YOUCLOUD_ACCOUNT_CENTER_HOST = getLocal("YOUCLOUD_ACCOUNT_CENTER_HOST", "")
+
+WEB_HOST_NAME = getLocal("WEB_HOST_NAME", "")
+WEB_IMAGE_SERVER_PATH = getLocal("WEB_IMAGE_SERVER_PATH", "")
+
+IMAGE_SAVING_PATH = getLocal("IMAGE_SAVING_PATH", "")
+IMAGE_SIZE_LIMIT = getLocal("IMAGE_SIZE_LIMIT", "")
+
+
+
+
+
+
 
 
 

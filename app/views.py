@@ -21,7 +21,7 @@ def returnBadRequest(message, code=1):
     return returnBase(message, code)
 
 def returnForbidden(message, code=1):
-    return returnBase(message, code)
+    return returnBase(message, code, status=403)
 
 def returnRedirect(location):
     return HttpResponseRedirect(location)

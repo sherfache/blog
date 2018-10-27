@@ -4,6 +4,7 @@ from django.urls import reverse
 import markdown
 from django.utils.html import strip_tags
 from app.util import Date
+from django.conf import settings
 
 
 class Category(models.Model):
@@ -93,10 +94,42 @@ class BlogKeyword(models.Model):
     updated_at = models.DateTimeField(default=datetime.now)
 
 
+class UploadImage(models.Model):
+    class Meta:
+        db_table = "upload_image"
+
+    id = models.IntegerField(primary_key=True)
+    filename = models.CharField(max_length=252, default="")
+    file_md5 = models.CharField(max_length=128)
+    file_type = models.CharField(max_length=32)
+    file_size = models.IntegerField()
+    created_at = models.DateTimeField(default=datetime.now)
+    updated_at = models.DateTimeField(default=datetime.now)
 
 
+    @classmethod
+    def getImageByMd5(cls, md5):
+        try:
+            return UploadImage.objects.filter(file_md5=md5).first()
+        except Exception as e:
+            return None
 
+    # 获取本图片的url
+    def getImageUrl(self):
+        filename = self.file_md5 + "." + self.file_type
+        url = settings.WEB_HOST_NAME + settings.WEB_IMAGE_SERVER_PATH + filename
+        return url
 
+    # 获取本图片在本地的位置
+    def getImagePath(self):
+        filename = self.file_md5 + "." + self.file_type
+        path = settings.IMAGE_SAVING_PATH + filename
+        return path
+
+    def __str__(self):
+        s = "filename:" + str(self.filename) + " - " + "filetype:" + str(self.file_type) \
+        + " - " +  "filesize:" + str(self.file_size) + " - " + "filemd5:" + str(self.file_md5)
+        return s
 
 
 
