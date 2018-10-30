@@ -6,8 +6,9 @@ from django.http import request
 from django.http import HttpResponse
 from weixin.utils import checkSignature, WeixinParser
 from app.util import FileLogger
-from weixin.models import Weixin, User
+from weixin.models import Weixin
 from django.conf import settings
+import requests
 
 # 推送入口
 def index(request):
@@ -39,27 +40,34 @@ def index(request):
             # 拉取用户信息
             res = Weixin.getUserInfo(msgData.fromUserName)
             res.update({"sceneId": sceneId})
-            # pPushDataToAccountCenter(res)
+            # 推送用户信息
+            pPushDataToAccountCenter(res)
+            FileLogger.log_info("push_data", res, FileLogger.WEIXIN_HANDLER)
 
     resData = WeixinParser.returnTextMessage(msgData.fromUserName, "你什么关注我？(羞赧)")
 
     return HttpResponse(resData, content_type="application/xml")
 
 
-# # 推送数据
-# def pPushDataToAccountCenter(data):
-#     url = settings.YOUCLOUD_ACCOUNT_CENTER_HOST + "/weixin/data_push"
-#     para = {
-#         "sceneId": data["sceneId"],
-#         "unionId": data["unionid"],
-#         "nickname": data,
-#         "headImgUrl": data,
-#         "country": data,
-#         "province": data,
-#         "city": data,
-#         "sex": data
-#     }
-#
+# 推送数据
+def pPushDataToAccountCenter(data):
+    url = settings.YOUCLOUD_ACCOUNT_CENTER_HOST + "/weixin/data_push"
+    para = {
+        "sceneId": data["sceneId"],
+        "unionId": data["unionid"],
+        "nickname": data.get("nickname", ""),
+        "headImgUrl": data.get("headimgurl", ""),
+        "country": data.get("country", ""),
+        "province": data.get("province", ""),
+        "city": data.get("city", ""),
+        "sex": data.get("sex", "0")
+    }
+    try :
+        res = requests.post(url, json=para).json()
+        FileLogger.log_info("push_to_center", res, FileLogger.WEIXIN_HANDLER)
+    except Exception as e:
+        FileLogger.log_info("error", e, FileLogger.WEIXIN_HANDLER)
+
 
 
 

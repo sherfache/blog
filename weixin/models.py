@@ -53,52 +53,52 @@ class Weixin:
             return cls.requestAccessToken()
         return cls.accessToken
 
-# 用户信息模型
-class User(models.Model):
-
-    db_table = "user"
-
-    openid = models.CharField(max_length=128, primary_key=True)
-    nickname = models.CharField(max_length=128)
-    sex = models.IntegerField(default=0)
-    country = models.CharField(max_length=32)
-    province =models.CharField(max_length=32)
-    city = models.CharField(max_length=64)
-    headimgurl = models.CharField(max_length=2040)
-    subscribe_time = models.DateTimeField(default=datetime.datetime.now)
-    created_at = models.DateTimeField(default=datetime.datetime.now)
-    updated_at = models.DateTimeField(default=datetime.datetime.now)
-
-
-    @staticmethod
-    def getUser(id):
-        try:
-            if not id:
-                return None
-            return User.objects.get(openid=id)
-        except Exception as e:
-            return None
-
-    # create & update
-    @staticmethod
-    def saveUser(data):
-        try:
-            if isinstance(data, dict):
-                return None
-            user = User.getUser(data.get("openid"))
-            if not user:
-                user = User(openid=data["openid"])
-            user.nickname = data.get("nickname", "")
-            user.sex = data.get("sex", 0)
-            user.country = data.get("country", "")
-            user.province = data.get("province", "")
-            user.city = data.get("city", "")
-            user.headimgurl = data.get("headimgurl", "")
-            user.subscribe_time = data.get("subscribe_time", datetime.datetime.now())
-            user.save()
-            return user
-        except Exception as e:
-            return None
+# # 用户信息模型
+# class User(models.Model):
+#
+#     db_table = "user"
+#
+#     openid = models.CharField(max_length=128, primary_key=True)
+#     nickname = models.CharField(max_length=128)
+#     sex = models.IntegerField(default=0)
+#     country = models.CharField(max_length=32)
+#     province =models.CharField(max_length=32)
+#     city = models.CharField(max_length=64)
+#     headimgurl = models.CharField(max_length=2040)
+#     subscribe_time = models.DateTimeField(default=datetime.datetime.now)
+#     created_at = models.DateTimeField(default=datetime.datetime.now)
+#     updated_at = models.DateTimeField(default=datetime.datetime.now)
+#
+#
+#     @staticmethod
+#     def getUser(id):
+#         try:
+#             if not id:
+#                 return None
+#             return User.objects.get(openid=id)
+#         except Exception as e:
+#             return None
+#
+#     # create & update
+#     @staticmethod
+#     def saveUser(data):
+#         try:
+#             if isinstance(data, dict):
+#                 return None
+#             user = User.getUser(data.get("openid"))
+#             if not user:
+#                 user = User(openid=data["openid"])
+#             user.nickname = data.get("nickname", "")
+#             user.sex = data.get("sex", 0)
+#             user.country = data.get("country", "")
+#             user.province = data.get("province", "")
+#             user.city = data.get("city", "")
+#             user.headimgurl = data.get("headimgurl", "")
+#             user.subscribe_time = data.get("subscribe_time", datetime.datetime.now())
+#             user.save()
+#             return user
+#         except Exception as e:
+#             return None
 
 
 

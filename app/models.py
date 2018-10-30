@@ -69,7 +69,7 @@ class Blog(models.Model):
     @classmethod
     def getAllBlog(cls):
         try:
-            return Blog.objects.all()
+            return Blog.objects.all().order_by("-id")
         except:
             return None
 
